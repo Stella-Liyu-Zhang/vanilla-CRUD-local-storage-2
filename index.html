@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Stellar Movie App</title>
+</head>
+<body>
+    <div class="container">
+        <div class="movie__header" id="movie-header">
+            <div class="left__header">
+                <h1><span id="movies">26</span> Movies</h1>
+            </div>
+            <div class="right__header">
+                <button class="movie__button" id="add-movie-button">
+                    + Add New Movie
+                </button>
+            </div>
+        </div>
+
+        <div class="movie__list" id="movie-list">
+            
+        </div>
+
+        <!----------Adding a modal to add A new movie --->
+        <div class="modal hidden" id="add-movie-modal">
+            <div class="modal__content">
+                <div class="modal__header-left">
+                    <h1>Add a New Movie of your choice</h1>
+                </div>
+
+                <div class="modal__body">
+                    <form id="add-movie-form" class="movieform" action="">
+                        <div class="form__group">
+                            <label for="movie_name">Movie Name</label>
+                            <input type="text" name="movie_name" id="movie_name" class="form__input">
+                        </div>
+                        <div class="form__group">
+                            <label for="director_name">Director Name</label>
+                            <input type="text" name="director_name" id="director_name" class="form__input">
+                        </div>
+                        <div class="form__group">
+                            <label for="text">Comments</label>
+                            <textarea name="text" id="text" class="form__input"></textarea>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="modal__footer">
+                    <button class="modal__button movie__button" id="add-button">
+                        Add Movie
+                    </button>
+                    <button class="modal__button movie__button modal__button__cancel" id="cancel-button">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
