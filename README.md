@@ -1,5 +1,7 @@
 # CRUD App built with Vanilla JS, html, CSS and store data in local storage.
 
+## Main UI Page
+![00](./imgs/Main%20UI.png)
 ## why local storage?
 
 

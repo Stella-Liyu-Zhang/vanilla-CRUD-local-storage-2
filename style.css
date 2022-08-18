@@ -35,6 +35,10 @@ h1{
     font-weight: 1000;
     letter-spacing: -0.25px;
 }
+ul{
+    list-style-type: none;
+
+}
 
 .movie__button{
     outline: none;
@@ -105,7 +109,7 @@ h2{
     font-size: 24px;
     line-height: 35px;
     letter-spacing: -.33333px;
-    color: rgb(58,67,116);
+    color: #7c7975;
     padding-bottom: 26px;
     padding-top: 16px;
 }
@@ -114,7 +118,7 @@ h3{
     font-size: 18px;
     line-height: 35px;
     letter-spacing: -.33333px;
-    color: rgb(58,67,116);
+    color: #7c7975;
     padding-bottom: 2px;
     padding-top: -2px;
 }
@@ -125,7 +129,7 @@ input{
     font-weight: 400;
     font-size: 15px;
     line-height: 22px;
-    color: rgb(58,67,116);
+    color: rgb(140,146,179);
     background: rgb(255,255,255) none repeat scroll 0% 0%;
     border-radius: 5px;
     border: medium none;
