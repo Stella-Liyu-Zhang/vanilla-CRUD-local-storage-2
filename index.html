@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,29 +10,29 @@
 </head>
 
 <body>
-    <div class="container">
-        <div class="movie__header" id="movie-header">
-            <div class="left__header">
+    <main class="container">
+        <section class="movie__header" id="movie-header">
+            <section class="left__header">
                 <h1><span id="movies">26</span> Movies</h1>
-            </div>
-            <div class="right__header">
+            </section>
+            <section class="right__header">
                 <button class="movie__button" id="add-movie-button">
                     + Add New Movie
                 </button>
-            </div>
-        </div>
+            </section>
+        </section>
 
         <div class="movie__list" id="movie-list">
             
         </div>
 
         <!----------Adding a modal to add A new movie --->
-            <div  class="modal hidden" id="add-movie-modal">
+            <dialog  class="modal hidden" id="add-movie-modal">
                 <div class="modal__content">
-                    <div class="modal__header-left">
+                    <section class="modal__header-left">
                         <h1>Add a New Movie of your choice</h1>
-                    </div>
-                    <div class="modal__body">
+                    </section>
+                    <section class="modal__body">
                         <form id="add-movie-form" class="movieform" action="">
                             <ul>
                                 <li class="form__group">
@@ -48,20 +49,34 @@
                                 </li>
                             </ul>
                         </form>
-                    </div>
+                    </section>
     
-                    <div class="modal__footer">
+                    <section class="modal__footer">
                         <button class="modal__button movie__button" id="add-button">
                             Add Movie
                         </button>
                         <button class="modal__button movie__button modal__button__cancel" id="cancel-button">
                             Cancel
                         </button>
-                    </div>
+                    </section>
                 </div>
-            </div >
+            </dialog >
+    </main>
+    <template>
+        <div class="movie_details">
+            <p class="movie_name"></p>
+            <p class="director_name"></p>
+            <p class="text"></p>
+        </div>         
+        <div class="movie__buttons">
+            <button class="movie__button edit">
+                Edit
+            </button>
+            <button class="movie__button delete">
+                Delete
+            </button>
         </div>
-
+    </template>
     <script src="./script.js"></script>
 </body>
 </html>

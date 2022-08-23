@@ -1,74 +1,118 @@
-const ELEMS = {};
+    const ELEMS = {};
+    const movies = [];
+    const movieElems = [];
 
-function queryElements(){
-    ELEMS.movieheader = document.getElementById("movie-header");
-    ELEMS.totalmovies = document.getElementById("movies");
-    ELEMS.addMovieBtn= document.getElementById("add-movie-button");
+    function queryElements(){
+        ELEMS.movieheader = document.getElementById("movie-header");
+        ELEMS.totalmovies = document.getElementById("movies");
+        ELEMS.addMovieBtn= document.getElementById("add-movie-button");
 
-    ELEMS.movieTitleInput = document.getElementById("movie_name");
-    ELEMS.movieCommentInput= document.getElementById("text");
-    ELEMS.directorInput = document.getElementById("director_name");
-    
-    //ELEMS.dialog = document.querySelector('dialog');
-    
-    ELEMS.addBtn= document.getElementById("add-button");
-    ELEMS.cancelBtn= document.getElementById("cancel-button");
-    ELEMS.modal = document.getElementById("add-movie-modal");
-    ELEMS.movieList = document.getElementById("movie-list");
-
-    // we report error if we have trouble finding the element.
-	Object.keys(ELEMS).forEach((elem) => {
-		if (!ELEMS[elem]) {
-			console.error(`Trouble querying ${elem} element`);
-		}
-	});
-}
-
-
-function bindEvents() {
-
-    ELEMS.totalmovies.innerHTML = localStorage.length;
-
-    let movieobject = {};
-
-    ELEMS.addMovieBtn.addEventListener("click", () => {
-    
-        ELEMS.modal.classList.remove('hidden');
-        ELEMS.movieheader.classList.add('hidden');
-        ELEMS.movieList.classList.add('hidden');
-    })
-
-    ELEMS.cancelBtn.addEventListener("click", () => {
-        ELEMS.modal.classList.add('hidden');
-        ELEMS.movieheader.classList.remove('hidden');
-        ELEMS.movieList.classList.remove('hidden');
+        ELEMS.movieTitleInput = document.getElementById("movie_name");
+        ELEMS.movieCommentInput= document.getElementById("text");
+        ELEMS.directorInput = document.getElementById("director_name");
         
-    })
+        //ELEMS.dialog = document.querySelector('dialog');
+        
+        ELEMS.addBtn= document.getElementById("add-button");
+        ELEMS.cancelBtn= document.getElementById("cancel-button");
+        ELEMS.modal = document.getElementById("add-movie-modal");
+        ELEMS.movieList = document.getElementById("movie-list");
+        ELEMS.totalmovies.innerHTML = localStorage.length;
 
-    ELEMS.addBtn.addEventListener("click", () =>{
-        console.log(ELEMS.movieTitleInput.value, ELEMS.directorInput.value, ELEMS.movieCommentInput.value);
-        movieobject.movie_name = ELEMS.movieTitleInput.value;
-        movieobject.director_name = ELEMS.directorInput.value;
-        movieobject.text = ELEMS.movieCommentInput.value;
-
-        //add an id on each movie
-        let id = Math.floor(Math.random() * 100);
-        movieobject.id = id;
-
-        ELEMS.movieTitleInput.value = "";
-        ELEMS.directorInput.value = "";
-        ELEMS.movieCommentInput.value = "";
-
-        ELEMS.modal.classList.add('hidden');
-        ELEMS.movieheader.classList.remove('hidden');
-        ELEMS.movieList.classList.remove('hidden');
-
-        localStorage.setItem(id, JSON.stringify(movieobject));
-
-        window.location.reload();
-    })
+        ELEMS.template = document.querySelector('template');
 
 
+        // we report error if we have trouble finding the element.
+        Object.keys(ELEMS).forEach((elem) => {
+            if (!ELEMS[elem]) {
+                console.error(`Trouble querying ${elem} element`);
+            }
+        });
+    }
+
+
+    function readfromStorage(){
+        Object.keys(localStorage).forEach(key => {
+            movies.push(JSON.parse(localStorage.getItem(key)));
+        });
+        console.log(movies);
+    }
+
+    function addMovie(){
+        ELEMS.addMovieBtn.addEventListener("click", () => {
+    
+            ELEMS.modal.classList.remove('hidden');
+            ELEMS.movieheader.classList.add('hidden');
+            ELEMS.movieList.classList.add('hidden');
+        })
+    }
+
+    function cancelMovie(){
+        ELEMS.cancelBtn.addEventListener("click", () => {
+            ELEMS.modal.classList.add('hidden');
+            ELEMS.movieheader.classList.remove('hidden');
+            ELEMS.movieList.classList.remove('hidden');
+            
+        })
+    }
+
+    function addintoList(){
+        ELEMS.addBtn.addEventListener("click", () =>{
+            movieobject.movie_name = ELEMS.movieTitleInput.value;
+            movieobject.director_name = ELEMS.directorInput.value;
+            movieobject.text = ELEMS.movieCommentInput.value;
+    
+            //add an id on each movie
+            let id = Math.floor(Math.random() * 100);
+            movieobject.id = id;
+    
+            ELEMS.movieTitleInput.value = "";
+            ELEMS.directorInput.value = "";
+            ELEMS.movieCommentInput.value = "";
+    
+            ELEMS.modal.classList.add('hidden');
+            ELEMS.movieheader.classList.remove('hidden');
+            ELEMS.movieList.classList.remove('hidden');
+    
+            localStorage.setItem(id, JSON.stringify(movieobject));
+    
+            window.location.reload();
+        })
+    }
+
+
+
+    function createMovieElems(){
+        movies.forEach(movie => {
+            let newMovieElem = document.createElement('div');
+            newMovieElem.classList.add('movie__item');
+            newMovieElem.classList.add('item-animation');
+            newMovieElem.append(ELEMS.template.content.cloneNode(true));
+
+            newMovieElem.querySelector('p.movie_name').innerHTML = movie['movie_name'];
+            newMovieElem.querySelector('p.director_name').innerHTML = movie['director_name'];
+            newMovieElem.querySelector('p.text').innerHTML = movie['text'];
+
+            newMovieElem.setAttribute('data-id', movie['id']);
+
+            ELEMS.movieList.append(newMovieElem);
+        });
+    }
+
+    function attachEvents() {
+        Array.from(ELEMS.movieList.children).forEach(movie => {
+            let editBtn = movie.querySelector('button.edit');
+            let deleteBtn = movie.querySelector('button.delete');
+
+            editBtn.addEventListener('click', () => {
+                editMovie(movie.getAttribute('data-id'));
+            });
+            deleteBtn.addEventListener('click', () => {
+                deleteMovie(movie.getAttribute('data-id'));
+            });
+        });
+    }
+  
     //localstorage.remove(99);
     function deleteMovie(id){
         localStorage.removeItem(id);
@@ -76,7 +120,10 @@ function bindEvents() {
     }
 
     function editMovie(id){
-        let movieObject = JSON.parse(localStorage.getItem(id));
+        let currMovieElem = document.querySelector(`[data-id="${id}"]`);
+        console.log(currMovieElem);
+
+        let movieObject = JSON.parse(localStorage.getItem(id));     
 
         ELEMS.modal.classList.remove('hidden');
         ELEMS.movieheader.classList.add('hidden');
@@ -98,75 +145,24 @@ function bindEvents() {
             ELEMS.modal.classList.add('hidden');
             ELEMS.movieheader.classList.remove('hidden');
             ELEMS.movieList.classList.remove('hidden');
-    
+        
             deleteMovie(id);
             window.location.reload();
-        })
+        });
     }
 
-    ELEMS.editBtn.addEventListener('click', e => {
-        let id = e.target.getAttribute('data-id');
-        editMovie(id);
-    });
 
-    ELEMS.deleteBtn.addEventListener('click', e =>{
-        let id = e.target.getAttribute('data-id');
-        deleteMovie(id);
-    })
-
-}
-
-function showMovies(){
-    let movieobjects = localStorage;
-   // movieobject.id = "";
-    for (let i = 0; i < movieobjects.length; i++){
-        //getting the movie object from local storage
-        let movieobject = JSON.parse(localStorage.getItem(movieobjects.key(i)));
-        ELEMS.movieList.innerHTML += `
-            <div class="movie__item item-animation">
-                <div class="movie_details">
-                    <ul>  
-                        <li>
-                            <h1 class="movie_name" id="movie-name">
-                                ${movieobject.movie_name }
-                            </h1>
-                        </li>
-                        <li>
-                            <h3 class="director_name" id="director_name">
-                                ${ movieobject.director_name}
-                            </h3>
-                        </li>
-                        <li>
-                            <p class="movie-comment" id="movie-comment">
-                                ${movieobject.text}
-                            </p>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="movie__buttons">
-                    <button class="movie__button" id="edit-button" data-id="${movieobject.id}">
-                        Edit
-                    </button>
-
-                    <button class="movie__button" id="delete-button" data-id="${movieobject.id}">
-                        Delete
-                    </button>                    
-                </div>
-            </div>`
-             
-    ELEMS.editBtn= document.getElementById("edit-button");
-    ELEMS.deleteBtn= document.getElementById("delete-button");
-    }
-     
-    ELEMS.editBtn= document.getElementById("edit-button");
-    ELEMS.deleteBtn= document.getElementById("delete-button");
-}
+        
 
 function init() {
-	queryElements();
-    showMovies();
-    bindEvents();
+    //Read from local storage
+    readfromStorage();
+    queryElements();
+    createMovieElems();
+    attachEvents();
+    addMovie();
+    cancelMovie();
+    addintoList();
 }
 
 document.addEventListener('DOMContentLoaded', init)
