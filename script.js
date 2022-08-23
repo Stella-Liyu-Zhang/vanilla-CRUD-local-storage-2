@@ -1,5 +1,5 @@
 
-    const ELEMS = {};
+    export const ELEMS = {};
     const movies = [];
     const movieElems = [];
 
@@ -61,7 +61,7 @@
     
             //add an id on each movie
             let id = Math.floor(Math.random() * 100);
-            let sequentialid = localStorage.length+1;
+            //let sequentialid = localStorage.length+1;
             ELEMS.movieList.dataid = id;
     
             ELEMS.movieTitleInput.value = "";
