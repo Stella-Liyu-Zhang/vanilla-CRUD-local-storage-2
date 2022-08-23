@@ -2,8 +2,11 @@
 
 ## Main UI Page
 ![00](./imgs/Main%20UI.png)
-## why local storage?
 
+## Some JS Notes:
+### setItem() method
+The setItem() method of the Storage interface, when passed a key name and value, will add that key to the given Storage object, or update that key's value if it already exists.
+## why local storage?
 
 
 ## CSS Notes:
