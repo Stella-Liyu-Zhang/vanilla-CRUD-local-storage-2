@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', init)
     let id = Math.floor(Math.random() * 100);
 ```
     - Make incrementing numbers 
-8) Make a "template" tag in html whenever we want to embed some into the 
+8) Make a "template" tag in html whenever we want to embed some into the JS
 
 
 ## Some JS Notes:
